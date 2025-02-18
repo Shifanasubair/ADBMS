@@ -70,4 +70,4 @@ desc EMPLOYEE_DUPLICATE;
 | dob      | date        | YES  |     | NULL    |       |
 | adhar_no | int         | YES  |     | NULL    |       |
 +----------+-------------+------+-----+---------+-------+
-
+//RESUBMIT
