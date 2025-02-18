@@ -1,0 +1,73 @@
+mysql> create database shifana;
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| shifana            |
+| sys                |
++--------------------+
+
+mysql> use shifana;
+Database changed
+1)CREATE TABLE EMPLOYEE HAVE THE FOLLOWING FIELDS(emp_id,name,city,dob,adhar_no).
+ans)mysql> create table EMPLOYEE(emp_id int,name varchar(25),dob date,adhar_no int); 
+mysql> desc EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int         | YES  |     | NULL    |       |
+| name     | varchar(25) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+2)create table STUDENT have the fields(roll_no,name ,age int,address,gender)and add following constraints on it.
+roll_no- primary key
+name-does not allow null values
+age-must b in between(o-99),doesnot allow null values.
+gender-default value is'm'.
+
+ans)create table STUDENT(roll_no int primary key,name varchar(25) not null,age int not null check(age between 0 and 99),address varchar(25),gender varchar(10) default 'm');
+
+mysql> desc EMPLOYEE;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| name    | varchar(25) | NO   |     | NULL    |       |
+| age     | int         | NO   |     | NULL    |       |
+| address | varchar(25) | YES  |     | NULL    |       |
+| gender  | varchar(10) | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+
+
+3) Create a temporary table STUDENT1 of STUDENT relation.
+ans)create temporary table STUDENT1 as select* from STUDENT;
+desc STUDENT1;
+
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   |     | NULL    | NULL  |
+| name    | varchar(25) | NO   |     | NULL    | NULL  |
+| age     | int         | NO   |     | NULL    | NULL  |
+| address | varchar(25) | YES  |     | NULL    | NULL  |
+| gender  | varchar(10) | YES  |     | m       | NULL  |
++---------+-------------+------+-----+---------+-------+
+
+4)Create a duplicate table of EMPLOYEE.
+ans)create table EMPLOYEE_DUPLICATE as select* from EMPLOYEE;
+desc EMPLOYEE_DUPLICATE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int         | YES  |     | NULL    |       |
+| name     | varchar(25) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
