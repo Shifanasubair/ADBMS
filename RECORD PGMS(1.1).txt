@@ -1,0 +1,38 @@
+5.CREATE AN INVOICE DATABASE AND HAVING THE FOLLOWING TABLES.
+CUSTOMER(ID,NAME,ADDRESS,CITY,PH_NO)
+ANS)create table customer(id int primary key,name varchar(25),address varchar(25),city varchar(25), ph_no int);
+
+PRODUCT(PID,PNAME,PRICE(DEFAULT 0))
+ANS) create table product(pid int primary key,_pname varchar(20),price int default 0);
+
+INVOICE_MASTER(INV_ID,CUST_ID(FK),INV_DATE)
+ANS)create table invoice_master(inv_id int primary key,cust_id int,inv_date date, foreign key(cust_id) references customer(id));
+
+INVOICE_ITEM(INV_ID(FK)PID(FK),QUANTITY)
+ANS)create table invoice_item(inv_id int,pid int,quantity int, foreign key(inv_id)references invoice_master(inv_id),foreign key (pid)references product(pid));
+
+A)DDL-ALTER & DROP
+
+1.ADD A COLUMN 'SSN' AT THE FIRST POSITION IN THE TABLE EMPLOYEE
+ANS)alter table EMPLOYEE add column ssn varchar(20) first;
+
+2.CHANGE THE DATATYPE OF THE COLOUMN 'DOB' IN YEAR THE TABLE EMPLOYEE.
+ANS)alter table EMPLOYEE modify dob year;
+
+3.DELETE THE COLUMN 'EMP_ID' THE TABLE EMPLOYEE.
+ANS)alter table EMPLOYEE drop column emp_id;
+
+4. ADD THE CONSTRAINT UNIQUE FOR COLOUMNS 'SSN' 'ADHAR_NO' THE TABLE EMPLOYEE.
+ANS)Alter table EMPLOYEE add constraint unique_ssn_adhar UNIQUE(ssn,adhar_no);
+
+5.DELETE THE NULL CONSTRAINT OF 'AGE' IN THE STUDENT TABLE.
+ANS) alter table EMPLOYEE modify age int NULL;
+
+
+6.CHANGE THE TABLE NAME EMPLOYEE AS PERSON;
+ANS) alter table EMPLOYEE rename to person;
+
+7.DELETE THE TABLE STUDENT.
+ANS) drop table STUDENT;
+
+
