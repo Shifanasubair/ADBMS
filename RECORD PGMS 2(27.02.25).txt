@@ -197,6 +197,7 @@ mysql> select*from invoice_item;
 8 rows in set (0.00 sec)
 
 DML-DELETE
+
 1.Delete the record of customer id ‘101'
 ans.delete from invoice_item where pid=2;
 Query OK, 2 rows affected (0.00 sec)
@@ -225,8 +226,7 @@ mysql> select*from invoice_master;
 +--------+---------+------------+
 4 rows in set (0.00 sec)
 
-mysql> delete from customer where cust_id=101;
-ERROR 1054 (42S22): Unknown column 'cust_id' in 'where clause'
+
 mysql> delete from customer where id=101;
 Query OK, 1 row affected (0.00 sec)
 
@@ -238,8 +238,7 @@ mysql> select*from customer;
 | 102 | subair  | pulikkal(h)      | ekm      | 8606164393 |
 | 103 | fabija  | mangalam(h)      | tvm      | 9544122600 |
 | 104 | surumin | puthanparambil   | kannur   | 9786234215 |
-+-----+---------+-----------
-
++-----+---------+------------------+----------+------------+
 
 2.Delete all purchase details of items its quantity less than 2.   
 ans.delete from invoice_item where quantity<2;
@@ -260,20 +259,20 @@ mysql> select*from invoice_item;
 7 rows in set (0.00 sec)
 
 3.Delete the purchase details of product ‘pen’ in the in_id ‘1001’. 
-ans.delete from product where pname='pen' and pid=1001;
-Query OK, 0 rows affected (0.00 sec)
+ans.delete from product where pname='pen' and pid=1;
+Query OK, 1 row affected (0.00 sec)
 
 mysql> select*from product;
 +-----+--------------+-------+
 | pid | pname        | price |
 +-----+--------------+-------+
-|   1 | pen          |    51 |
 |   2 | diary        |   143 |
 |   3 | handwash     |    61 |
 |   4 | detergent    |   152 |
 |   5 | water bottle |    82 |
 +-----+--------------+-------+
-5 rows in set (0.00 sec)
+4 rows in set (0.00 sec)
+
 
 4.Delete details of employees who does not have phone number.  
 ans.delete from customer where ph_no is null;
@@ -290,6 +289,8 @@ mysql> select*from customer;
 | 104 | surumin | puthanparambil   | kannur    | 9786234215 |
 +-----+---------+------------------+-----------+------------+
 5 rows in set (0.00 sec)
+
+
 
 
 5.Delete Invoice details of a particular customer(name).   
@@ -335,7 +336,6 @@ mysql> select*from invoice_master;
 3 rows in set (0.00 sec)
 
 
-
 6.Delete the first two records of INVOICE_ITEM table its purchase quantity is high.
 ans.delete from invoice_item order by quantity desc limit 2;
 Query OK, 2 rows affected (0.01 sec)
@@ -351,3 +351,27 @@ mysql> select*from invoice_item;
 |   1005 |    4 |        5 |
 +--------+------+----------+
 5 rows in set (0.0 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
