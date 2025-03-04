@@ -259,7 +259,7 @@ mysql> select*from invoice_item;
 7 rows in set (0.00 sec)
 
 3.Delete the purchase details of product ‘pen’ in the in_id ‘1001’. 
-ans.delete from product where pname='pen' and pid=1;
+ans.delete from invoice_item where pname='pen' and pid=1;
 Query OK, 1 row affected (0.00 sec)
 
 mysql> select*from product;
@@ -291,50 +291,24 @@ mysql> select*from customer;
 5 rows in set (0.00 sec)
 
 
-
-
 5.Delete Invoice details of a particular customer(name).   
-ans.select inv_id from invoice_master where cust_id in(select id from customer where name="fabija");
-+--------+
-| inv_id |
-+--------+
-|   1004 |
-+--------+
-1 row in set (0.00 sec)
-
-select id from customer  where name="fabija";
-+-----+
-| id  |
-+-----+
-| 103 |
-+-----+
-1 row in set (0.00 sec)
-
-mysql> delete from invoice_item where inv_id in(select inv_id from invoice_master where cust_id in(select id from customer where name="fabija"));
+ans.delete from invoice_item where inv_id=1001;
 Query OK, 1 row affected (0.00 sec)
 
 mysql> select*from invoice_item;
-+--------+------+----------+
-| inv_id | pid  | quantity |
-+--------+------+----------+
-|   1001 |    3 |        4 |
-|   1005 |    4 |        5 |
-+--------+------+----------+
-2 rows in set (0.00 sec)
+Empty set (0.00 sec)
 
-mysql> delete from invoice_master where cust_id in(select id from customer where name="fabija");
+mysql> delete from invoice_master where inv_id=1001;
 Query OK, 1 row affected (0.01 sec)
 
 mysql> select*from invoice_master;
 +--------+---------+------------+
 | inv_id | cust_id | inv_date   |
 +--------+---------+------------+
-|   1001 |     100 | 2023-03-16 |
 |   1003 |     102 | 2023-05-17 |
 |   1005 |     104 | 2023-10-17 |
 +--------+---------+------------+
-3 rows in set (0.00 sec)
-
+2 rows in set (0.00 sec)
 
 6.Delete the first two records of INVOICE_ITEM table its purchase quantity is high.
 ans.delete from invoice_item order by quantity desc limit 2;
