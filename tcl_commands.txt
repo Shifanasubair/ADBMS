@@ -1,0 +1,154 @@
+COMMIT,ROLLBACK AND SAVE POINT
+
+
+COMMIT
+
+show databases;
++--------------------+
+| Database           |
++--------------------+
+| INVOICE            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| shifana            |
+| sys                |
++--------------------+
+6 rows in set (0.01 sec)
+
+
+
+ show tables;
++-------------------+
+| Tables_in_shifana |
++-------------------+
+| employee          |
+| student           |
++-------------------+
+2 rows in set (0.00 sec)
+
+
+select * from student;
++---------+--------+-----+------------------------+--------+
+| roll_no | name   | age | address                | gender |
++---------+--------+-----+------------------------+--------+
+|       1 | aswin  |  22 | kongath veetil         | male   |
+|       2 | anshab |  22 | panikkaveetil karakkad | male   |
++---------+--------+-----+------------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+insert into student values(3,"nahyan",21,"pulikkal house","male");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++---------+--------+-----+------------------------+--------+
+| roll_no | name   | age | address                | gender |
++---------+--------+-----+------------------------+--------+
+|       1 | aswin  |  22 | kongath veetil         | male   |
+|       2 | anshab |  22 | panikkaveetil karakkad | male   |
+|       3 | nahyan |  21 | pulikkal house         | male   |
++---------+--------+-----+------------------------+--------+
+3 rows in set (0.00 sec)
+
+
+select * from student;
++---------+--------+-----+------------------------+--------+
+| roll_no | name   | age | address                | gender |
++---------+--------+-----+------------------------+--------+
+|       1 | aswin  |  22 | kongath veetil         | male   |
+|       2 | anshab |  22 | panikkaveetil karakkad | male   |
++---------+--------+-----+------------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into student values(3,"nahyan",21,"pulikkal house","male");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
++---------+--------+-----+------------------------+--------+
+| roll_no | name   | age | address                | gender |
++---------+--------+-----+------------------------+--------+
+|       1 | aswin  |  22 | kongath veetil         | male   |
+|       2 | anshab |  22 | panikkaveetil karakkad | male   |
+|       3 | nahyan |  21 | pulikkal house         | male   |
++---------+--------+-----+------------------------+--------+
+3 rows in set (0.00 sec)
+
+ROLLBACK
+
+ set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from student where roll_no =2;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++---------+--------+-----+----------------+--------+
+| roll_no | name   | age | address        | gender |
++---------+--------+-----+----------------+--------+
+|       1 | aswin  |  22 | kongath veetil | male   |
+|       3 | nahyan |  21 | pulikkal house | male   |
++---------+--------+-----+----------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
++---------+--------+-----+---------------------+--------+
+| roll_no | name   | age | address             | gender |
++---------+--------+-----+---------------------+--------+
+|       1 | aswin  |  22 | kongath veetil      | male   |
+|       2 | anshab |  22 | panikkaveetil house | male   |
+|       3 | nahyan |  21 | pulikkal house      | male   |
++---------+--------+-----+---------------------+--------+
+3 rows in set (0.00 sec)
+
+
+
+SAVEPOINT
+
+set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into student values(4,"shifana",21,"pokkakkilath house","female");
+
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into student values(5,"ajmi",21,"nambazhanghad house","female");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into student values(6,"fyzi",17,"parammal house","male");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s3;
+Query OK, 0 rows affected (0.00 sec)
+
+rollback to s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
++---------+---------+-----+---------------------+--------+
+| roll_no | name    | age | address             | gender |
++---------+---------+-----+---------------------+--------+
+|       1 | aswin   |  22 | kongath veetil      | male   |
+|       2 | anshab  |  22 | panikkaveetil house | male   |
+|       3 | nahyan  |  21 | pulikkal house      | male   |
+|       4 | shifana |  21 | pokkakkilath house  | female |
+|       5 | ajmi    |  21 | nambazhanghad house | female |
++---------+---------+-----+---------------------+--------+
+5 rows in set (0.00 sec)
+
