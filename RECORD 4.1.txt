@@ -50,28 +50,19 @@ select min(price) as min_price,max(price) as max_price,avg(price) as average_pri
 1 row in set (0.00 sec)
 
 
-3. Find number of customers in each city. 
-
-select * from customer;
-+-----+---------+------------------+----------+------------+
-| id  | name    | address          | city     | ph_no      |
-+-----+---------+------------------+----------+------------+
-| 100 | fathima | panikkaveetil(h) | thrissur | 9745689099 |
-| 101 | aryan   | maple(h)         | kochi    | 9876456785 |
-| 102 | subair  | pulikkal(h)      | ekm      | 8606164393 |
-| 103 | fabija  | mangalam(h)      | tvm      | 9544122600 |
-| 104 | surumin | puthanparambil   | kannur   | 9786234215 |
-| 105 | shifana | chungath(h)      | calicut  | NULL       |
-+-----+---------+------------------+----------+------------+
-6 rows in set (0.01 sec)
-
-mysql> select count(*) from customer;
-+----------+
-| count(*) |
-+----------+
-|        6 |
-+----------+
-1 row in set (0.00 sec)
+3. select city,count(id) as customer_count from customer group by city;
++-----------+----------------+
+| city      | customer_count |
++-----------+----------------+
+| thrissur  |              1 |
+| kochi     |              1 |
+| ekm       |              1 |
+| tvm       |              1 |
+| kannur    |              1 |
+| calicut   |              4 |
+| bridgeton |              1 |
++-----------+----------------+
+7 rows in set (0.00 sec)
 
 
 
