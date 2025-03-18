@@ -32,19 +32,17 @@ select * from invoice_master where inv_date between '2024-01-01' and '2024-03-31
 2 rows in set (0.00 sec)
 
 
-3.select city,count(id) as customer_count from customer group by city;
-+-----------+----------------+
-| city      | customer_count |
-+-----------+----------------+
-| thrissur  |              1 |
-| kochi     |              1 |
-| ekm       |              1 |
-| tvm       |              1 |
-| kannur    |              1 |
-| calicut   |              4 |
-| bridgeton |              1 |
-+-----------+----------------+
-7 rows in set (0.00 sec)
+3.LIST THE CUSTOMER DETAILS WHO NOT LIVE IN "TBM
+
+select * from customer where city != "tvm";
++-----+---------+------------------+----------+------------+
+| id  | name    | address          | city     | ph_no      |
++-----+---------+------------------+----------+------------+
+| 100 | fathima | panikkaveetil(h) | thrissur | 9745689099 |
+| 102 | subair  | pulikkal(h)      | ekm      | 8606164393 |
+| 104 | surumin | puthanparambil   | kannur   | 9786234215 |
++-----+---------+------------------+----------+------------+
+3 rows in set (0.00 sec)
 
 
 4.LIST THE CUSTOMERS WHO HAVE NO PHONE NUMBER.
