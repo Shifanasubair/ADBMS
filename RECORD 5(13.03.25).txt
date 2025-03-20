@@ -3,16 +3,13 @@ ACCESSING DATABASE:(SUBQUERY)
 1.    List the product name and price of each invoice item. 
 
 select pname,price from product where pid in(select pid from invoice_item);
-+--------------+-------+
-| pname        | price |
-+--------------+-------+
-| soap         |    60 |
-| pencil       |   143 |
-| pen          |   152 |
-| water bottle |    82 |
-+--------------+-------+
-4 rows in set (0.00 sec)
-
++-----------+-------+
+| pname     | price |
++-----------+-------+
+| handwash  |    61 |
+| detergent |   152 |
++-----------+-------+
+2 rows in set (0.00 sec)
 
 
 2.List the product names, only include their purchased quantity more than 3. 
@@ -52,13 +49,14 @@ select pname from product where pid not in(select distinct pid from invoice_item
 
 4.  List the customer names who purchased the items ‘pen’ and ‘pencil’. 
 
-select distinct c.name from customer c join invoice_master im on c.id=im.cust_id join invoice_item ii on im.inv_id=ii.inv_id join product p on ii.pid=p.pid where p.pname in ('pen','pencil') group by c.id, c.name having count(distinct p.pname)=2;
+SELECT name  FROM customer  WHERE id IN ( SELECT cust_id FROM invoice_master   WHERE inv_id IN (  SELECT inv_id FROM invoice_item  WHERE pid = (SELECT pid FROM product WHERE pname = 'pen')  )  )  AND id IN (  SELECT cust_id FROM invoice_master  WHERE inv_id IN (  SELECT inv_id FROM invoice_item  WHERE pid = (SELECT pid FROM product WHERE pname = 'pencil')));
 +--------+
 | name   |
 +--------+
 | subair |
 +--------+
 1 row in set (0.01 sec)
+
 
 5. Display the purchased product details of the customer ’xyz’. 
 
@@ -85,6 +83,6 @@ select distinct c.name from customer c join invoice_master im on c.id=im.cust_id
 1 row in set (0.00 sec)
 
 
-//RESUBMIT
+
 
 
