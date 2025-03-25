@@ -1,0 +1,112 @@
+OPTIMIZING DATABASE: (JOINS)
+1.List the product name and quantity of invoice items. 
+
+select p.pname as product_name, ii.quantity as product_quantity from product p join invoice_item ii on p.pid=ii.pid;
++--------------+------------------+
+| product_name | product_quantity |
++--------------+------------------+
+| pen          |                3 |
+| soap         |                3 |
+| soap         |                4 |
+| pencil       |                6 |
+| water bottle |                6 |
++--------------+------------------+
+5 rows in set (0.00 sec)
+
+2.Display invoice details of the transaction dated ’31-01-2022’. 
+select*from invoice_master im join invoice_item ii on im.inv_id=ii.inv_id where im.inv_date='2022-01-31';
++--------+---------+------------+--------+------+----------+
+| inv_id | cust_id | inv_date   | inv_id | pid  | quantity |
++--------+---------+------------+--------+------+----------+
+|   1006 |     100 | 2022-01-31 |   1006 |    3 |        5 |
++--------+---------+------------+--------+------+----------+
+1 row in set (0.00 sec)
+
+3. Display the customer name, product name, invoice date of purchased item ‘pen’. 
+
+select c.name,p.pname,im.inv_date from customer c join invoice_master im
+on c.id=im.cust_id join invoice_item ii on im.inv_id=ii.inv_id join product p on ii.pid=p.pid where p.pname="pen";
++--------+-------+------------+
+| name   | pname | inv_date   |
++--------+-------+------------+
+| subair | pen   | 2023-05-17 |
++--------+-------+------------+
+1 row in set (0.00 sec)
+
+
+4. Display all customer details and invoice details must include customer has not purchased items.
+
+select c.*,im.inv_id,im.inv_date from customer c left join invoice_master im on c.id=im.cust_id;
++-----+---------+------------------+-----------+------------+--------+------------+
+| id  | name    | address          | city      | ph_no      | inv_id | inv_date   |
++-----+---------+------------------+-----------+------------+--------+------------+
+| 100 | fathima | panikkaveetil(h) | thrissur  | 9745689099 |   1001 | 2024-03-15 |
+| 100 | fathima | panikkaveetil(h) | thrissur  | 9745689099 |   1006 | 2022-01-31 |
+| 101 | aryan   | maple(h)         | kochi     | 9876456785 |   NULL | NULL       |
+| 102 | subair  | pulikkal(h)      | ekm       | 8606164393 |   1003 | 2023-05-17 |
+| 103 | fabija  | mangalam(h)      | tvm       | 9544122600 |   1002 | 2024-04-16 |
+| 103 | fabija  | mangalam(h)      | tvm       | 9544122600 |   1004 | 2024-01-11 |
+| 104 | surumin | puthanparambil   | kannur    | 9786234215 |   1005 | 2023-10-17 |
+| 105 | shifana | chungath(h)      | calicut   | NULL       |   NULL | NULL       |
+| 106 | eshaan  | autumn           | calicut   | 9876905387 |   NULL | NULL       |
+| 107 | dua     | springton        | calicut   | 8798765342 |   NULL | NULL       |
+| 108 | nahyan  | thrissur         | bridgeton | 8976534262 |   NULL | NULL       |
+| 109 | heera   | downtown         | calicut   | 7898765342 |   NULL | NULL       |
++-----+---------+------------------+-----------+------------+--------+------------+
+12 rows in set (0.00 sec)
+
+
+OPTIMIZING DATABASE:(USING SET,ARITHMETIC,LOGICAL AND SPECIAL OPERATORS).
+
+1. Display customer_id, city  who lives either in ‘CLT’ or in ‘TVM’
+
+select id as customer_id,city from customer where city in("calicut","tvm");
++-------------+---------+
+| customer_id | city    |
++-------------+---------+
+|         103 | tvm     |
+|         105 | calicut |
+|         106 | calicut |
+|         107 | calicut |
+|         109 | calicut |
++-------------+---------+
+5 rows in set (0.00 sec)
+
+2. Display product details with an updated price amount(new price= old price+5rs)
+
+ select pid,pname,price,(price + 5)as new_price from product;
++-----+--------------+-------+-----------+
+| pid | pname        | price | new_price |
++-----+--------------+-------+-----------+
+|   1 | soap         |    60 |        65 |
+|   2 | pencil       |   143 |       148 |
+|   3 | handwash     |    61 |        66 |
+|   4 | pen          |   152 |       157 |
+|   5 | water bottle |    82 |        87 |
++-----+--------------+-------+-----------+
+5 rows in set (0.00 sec)
+
+
+3.Display customer details who doesn’t have phone number and lives in ‘Calicut’ city (use logical operators)
+
+ select * from customer where ph_no is null and city="calicut";
++-----+---------+-------------+---------+-------+
+| id  | name    | address     | city    | ph_no |
++-----+---------+-------------+---------+-------+
+| 105 | shifana | chungath(h) | calicut | NULL  |
++-----+---------+-------------+---------+-------+
+1 row in set (0.00 sec)
+
+
+4.List the product names if it finds any records in the invoice items table has quantity =3 (use special operators)
+
+select pname from product p join invoice_item ii on p.pid=ii.pid where quantity=3;
++-------+
+| pname |
++-------+
+| pen   |
+| soap  |
++-------+
+2 rows in set (0.00 sec)
+
+
