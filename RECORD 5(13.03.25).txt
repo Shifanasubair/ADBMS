@@ -60,27 +60,27 @@ SELECT name  FROM customer  WHERE id IN ( SELECT cust_id FROM invoice_master   W
 
 5. Display the purchased product details of the customer ’xyz’. 
 
-
-select p.pid, p.pname,p.price, ii.quantity from customer c join invoice_master im on c.id=im.cust_id join invoice_item ii on im.inv_id=ii.inv_id join product p on ii.pid=p.pid where c.name='subair';
-+-----+--------+-------+----------+
-| pid | pname  | price | quantity |
-+-----+--------+-------+----------+
-|   4 | pen    |   152 |        3 |
-|   2 | pencil |   143 |        6 |
-+-----+--------+-------+----------+
+select *from product where pid in(select pid from invoice_item where inv_id in(select inv_id from invoice_master where cust_id in(select id from customer where name="subair")));
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   4 | pen    |   152 |
+|   2 | pencil |   143 |
++-----+--------+-------+
 2 rows in set (0.00 sec)
 
 
 6. List the names of all customers who have purchased at least 2 products, make sure that no duplicate names in the result.
 
+ select distinct name from customer where id in(select cust_id from invoice_master  where inv_id in(select inv_id from invoice_item group by inv_id having count(inv_id)>=2));
++---------+
+| name    |
++---------+
+| subair  |
+| surumin |
++---------+
+2 rows in set (0.01 sec)
 
-select distinct c.name from customer c join invoice_master im on c.id=im.cust_id join invoice_item ii on im.inv_id=ii.inv_id group by c.id, c.name having count(distinct ii.pid)>=2;
-+--------+
-| name   |
-+--------+
-| subair |
-+--------+
-1 row in set (0.00 sec)
 
 
 
