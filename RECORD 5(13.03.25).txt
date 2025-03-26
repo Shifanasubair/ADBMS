@@ -82,7 +82,7 @@ select *from product where pid in(select pid from invoice_item where inv_id in(s
 2 rows in set (0.01 sec)
 
 
-
+//VERIFIED
 
 
 
