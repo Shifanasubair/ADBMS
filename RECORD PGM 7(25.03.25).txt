@@ -110,3 +110,4 @@ select pname from product p join invoice_item ii on p.pid=ii.pid where quantity=
 2 rows in set (0.00 sec)
 
 
+//VERIFIED
