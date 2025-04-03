@@ -1,0 +1,133 @@
+PL/SQL PROGRAMS- STORED PROCEDURES
+
+1. Create a procedure to display all tables in the invoice database.
+
+delimiter //
+mysql> show databases //
++--------------------+
+| Database           |
++--------------------+
+| INVOICE            |
+| companyDB          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| shifana            |
+| sys                |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> use INVOICE //
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+mysql> create procedure display()
+    -> begin
+    -> select *from customer;
+    -> select*from product;
+    -> select*from invoice_master;
+    -> select*from invoice_item;
+    -> end //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call display() //
++-----+---------+------------------+-----------+------------+
+| id  | name    | address          | city      | ph_no      |
++-----+---------+------------------+-----------+------------+
+| 100 | fathima | panikkaveetil(h) | thrissur  | 9745689099 |
+| 101 | aryan   | maple(h)         | kochi     | 9876456785 |
+| 102 | subair  | pulikkal(h)      | ekm       | 8606164393 |
+| 103 | fabija  | mangalam(h)      | tvm       | 9544122600 |
+| 104 | surumin | puthanparambil   | kannur    | 9786234215 |
+| 105 | shifana | chungath(h)      | calicut   | NULL       |
+| 106 | eshaan  | autumn           | calicut   | 9876905387 |
+| 107 | dua     | springton        | calicut   | 8798765342 |
+| 108 | nahyan  | thrissur         | bridgeton | 8976534262 |
+| 109 | heera   | downtown         | calicut   | 7898765342 |
++-----+---------+------------------+-----------+------------+
+10 rows in set (0.00 sec)
+
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | soap         |    60 |
+|   2 | pencil       |   143 |
+|   3 | handwash     |    61 |
+|   4 | pen          |   152 |
+|   5 | water bottle |    82 |
++-----+--------------+-------+
+5 rows in set (0.01 sec)
+
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1001 |     100 | 2024-03-15 |
+|   1002 |     103 | 2024-04-16 |
+|   1003 |     102 | 2023-05-17 |
+|   1004 |     103 | 2024-01-11 |
+|   1005 |     104 | 2023-10-17 |
+|   1006 |     100 | 2022-01-31 |
++--------+---------+------------+
+6 rows in set (0.01 sec)
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1003 |    4 |        3 |
+|   1005 |    1 |        3 |
+|   1005 |    1 |        4 |
+|   1003 |    2 |        6 |
+|   1002 |    5 |        6 |
+|   1006 |    3 |        5 |
++--------+------+----------+
+6 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+
+
+2.Create a procedure to find greatest of 2 numbers.
+
+
+mysql> create procedure greatest(a int,b int)
+    -> begin
+    -> declare x,y int;
+    -> set x=a;
+    -> set y=b;
+    -> if x>y then select x as 'Greater';
+    -> else
+    -> select y as 'greater';
+    -> end if;
+    -> end //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call greatest(19,31) //
++---------+
+| greater |
++---------+
+|      31 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+3. Create a procedure to display invoice details of a particular customer
+
+create procedure customer() 
+	->begin
+	->select distinct im.inv_id,im.inv_date,c.name as customer_name from invoice_master im join customer c on im.cust_id = c.id where 	im.cust_id =104;
+	->end//
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call customer() //
++--------+------------+---------------+
+| inv_id | inv_date   | customer_name |
++--------+------------+---------------+
+|   1005 | 2023-10-17 | surumin       |
++--------+------------+---------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
