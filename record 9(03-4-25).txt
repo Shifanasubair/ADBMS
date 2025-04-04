@@ -14,3 +14,4 @@ mysql> select pname,price_range(price) as price_range from product //
 +--------------+-------------+
 5 rows in set (0.00 sec)
 
+//verified
