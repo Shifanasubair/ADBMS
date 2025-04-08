@@ -113,22 +113,23 @@ Query OK, 0 rows affected (0.00 sec)
 
 
 3. Create a procedure to display invoice details of a particular customer
-
-create procedure customer() 
-	->begin
-	->select distinct im.inv_id,im.inv_date,c.name as customer_name from invoice_master im join customer c on im.cust_id = c.id where 	im.cust_id =104;
-	->end//
+mysql> create procedure customer(in customer_name varchar(100)) 
+    -> begin
+    -> select im.inv_date,im.inv_date,c.name as customer_name from invoice_master im join customer c on im.cust_id=c.id where c.name=customer_name;
+    -> end //
 Query OK, 0 rows affected (0.01 sec)
 
-mysql> call customer() //
-+--------+------------+---------------+
-| inv_id | inv_date   | customer_name |
-+--------+------------+---------------+
-|   1005 | 2023-10-17 | surumin       |
-+--------+------------+---------------+
+mysql> call customer("surumin");
+    -> //
++------------+------------+---------------+
+| inv_date   | inv_date   | customer_name |
++------------+------------+---------------+
+| 2023-10-17 | 2023-10-17 | surumin       |
++------------+------------+---------------+
 1 row in set (0.00 sec)
 
 Query OK, 0 rows affected (0.00 sec)
+
 
 //RESUBMIT
 last one need customer name
