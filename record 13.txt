@@ -68,3 +68,4 @@ db.CUSTOMER.find({ city: { $ne: "tvm" } })
   }
 ]
 
+//VERIFIED
