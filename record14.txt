@@ -85,3 +85,4 @@ db.CUSTOMER.aggregate([{$lookup: {from: "PRODUCT",localField: "id",foreignField:
   { customer_name: 'Nahyan ks', product_name: 'Laptop', price: 50000 }
 ]
 
+//VERIFIED
