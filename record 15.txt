@@ -1,0 +1,52 @@
+1.Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the INVOICE database. 
+
+db.createUser({user: "CUSTOMER1",pwd: "password123",roles: [ { role: "read", db: "INVOICE" } ]})
+{ ok: 1 }
+
+2.Write a MongoDB query to create the backup for the INVOICE database.
+
+mongodump --db=INVOICE --out=/home/ksb/SHIFANA/ADBMS
+
+2025-04-22T15:22:19.631+0530	writing INVOICE.PRODUCT to /home/ksb/SHIFANA/ADBMS/INVOICE/PRODUCT.bson
+2025-04-22T15:22:19.631+0530	writing INVOICE.CUSTOMER to /home/ksb/SHIFANA/ADBMS/INVOICE/CUSTOMER.bson
+2025-04-22T15:22:19.631+0530	writing INVOICE.INVOICE_ITEM to /home/ksb/SHIFANA/ADBMS/INVOICE/INVOICE_ITEM.bson
+2025-04-22T15:22:19.632+0530	done dumping INVOICE.PRODUCT (2 documents)
+2025-04-22T15:22:19.632+0530	done dumping INVOICE.CUSTOMER (5 documents)
+2025-04-22T15:22:19.633+0530	done dumping INVOICE.INVOICE_ITEM (3 documents)
+2025-04-22T15:22:19.634+0530	writing INVOICE.INVOICE_MASTER to /home/ksb/SHIFANA/ADBMS/INVOICE/INVOICE_MASTER.bson
+2025-04-22T15:22:19.634+0530	done dumping INVOICE.INVOICE_MASTER (2 documents)
+
+3.Write a MongoDB query to restore a particular database or a collection.
+
+ mongorestore --drop --db=INVOICE /home/ksb/SHIFANA/ADBMS/INVOICE
+2025-04-22T15:29:44.951+0530	The --db and --collection flags are deprecated for this use-case; please use --nsInclude instead, i.e. with --nsInclude=${DATABASE}.${COLLECTION}
+2025-04-22T15:29:44.951+0530	building a list of collections to restore from /home/ksb/SHIFANA/ADBMS/INVOICE dir
+2025-04-22T15:29:44.952+0530	reading metadata for INVOICE.INVOICE_MASTER from /home/ksb/SHIFANA/ADBMS/INVOICE/INVOICE_MASTER.metadata.json
+2025-04-22T15:29:44.952+0530	reading metadata for INVOICE.PRODUCT from /home/ksb/SHIFANA/ADBMS/INVOICE/PRODUCT.metadata.json
+2025-04-22T15:29:44.952+0530	reading metadata for INVOICE.CUSTOMER from /home/ksb/SHIFANA/ADBMS/INVOICE/CUSTOMER.metadata.json
+2025-04-22T15:29:44.952+0530	reading metadata for INVOICE.INVOICE_ITEM from /home/ksb/SHIFANA/ADBMS/INVOICE/INVOICE_ITEM.metadata.json
+2025-04-22T15:29:44.952+0530	dropping collection INVOICE.CUSTOMER before restoring
+2025-04-22T15:29:44.952+0530	dropping collection INVOICE.INVOICE_ITEM before restoring
+2025-04-22T15:29:44.952+0530	dropping collection INVOICE.INVOICE_MASTER before restoring
+2025-04-22T15:29:44.952+0530	dropping collection INVOICE.PRODUCT before restoring
+2025-04-22T15:29:44.963+0530	restoring INVOICE.CUSTOMER from /home/ksb/SHIFANA/ADBMS/INVOICE/CUSTOMER.bson
+2025-04-22T15:29:44.965+0530	restoring INVOICE.PRODUCT from /home/ksb/SHIFANA/ADBMS/INVOICE/PRODUCT.bson
+2025-04-22T15:29:44.967+0530	restoring INVOICE.INVOICE_ITEM from /home/ksb/SHIFANA/ADBMS/INVOICE/INVOICE_ITEM.bson
+2025-04-22T15:29:44.969+0530	restoring INVOICE.INVOICE_MASTER from /home/ksb/SHIFANA/ADBMS/INVOICE/INVOICE_MASTER.bson
+2025-04-22T15:29:44.974+0530	finished restoring INVOICE.CUSTOMER (5 documents, 0 failures)
+2025-04-22T15:29:44.975+0530	finished restoring INVOICE.PRODUCT (2 documents, 0 failures)
+2025-04-22T15:29:44.978+0530	finished restoring INVOICE.INVOICE_ITEM (3 documents, 0 failures)
+2025-04-22T15:29:44.980+0530	finished restoring INVOICE.INVOICE_MASTER (2 documents, 0 failures)
+2025-04-22T15:29:44.980+0530	restoring indexes for collection INVOICE.CUSTOMER from metadata
+2025-04-22T15:29:44.980+0530	index: &idx.IndexDocument{Options:primitive.M{"name":"customer_name_1", "v":2}, Key:primitive.D{primitive.E{Key:"customer_name", Value:1}}, PartialFilterExpression:primitive.D(nil)}
+2025-04-22T15:29:44.980+0530	index: &idx.IndexDocument{Options:primitive.M{"name":"name_1", "v":2}, Key:primitive.D{primitive.E{Key:"name", Value:1}}, PartialFilterExpression:primitive.D(nil)}
+2025-04-22T15:29:44.980+0530	no indexes to restore for collection INVOICE.INVOICE_ITEM
+2025-04-22T15:29:44.980+0530	no indexes to restore for collection INVOICE.INVOICE_MASTER
+2025-04-22T15:29:44.980+0530	no indexes to restore for collection INVOICE.PRODUCT
+2025-04-22T15:29:44.991+0530	12 document(s) restored successfully. 0 document(s) failed to restore.
+
+4.Write a MongoDB query to create an index for the collection customer using the field customer_name.use INVOICE
+
+db.CUSTOMER.createIndex({ customer_name: 1 })
+customer_name_1
+
