@@ -50,3 +50,5 @@ mongodump --db=INVOICE --out=/home/ksb/SHIFANA/ADBMS
 db.CUSTOMER.createIndex({ customer_name: 1 })
 customer_name_1
 
+//RESUBMIT
+display index
