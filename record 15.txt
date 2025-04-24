@@ -57,4 +57,4 @@ INVOICE> db.CUSTOMER.getIndexes();
   { v: 2, key: { name: 1 }, name: 'name_1' }
 ]
 
-
+//VERIFIED
